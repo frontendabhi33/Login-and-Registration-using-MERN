@@ -7,190 +7,70 @@
     font-family: 'Poppins', sans-serif;
 }
 
-::selection {
-    color: #fff;
-    background: #007bff;
+body {
+    background: #644bff;
+    padding: 0 20px;
 }
 
-body {
-    padding: 10px;
+::selection {
+    color: #fff;
+    background: #664AFF;
 }
 
 .wrapper {
-    margin: 100px auto;
-    max-width: 1100px;
+    max-width: 450px;
+    margin: 150px auto;
 }
 
-.wrapper nav {
-    display: flex;
-    justify-content: center;
-}
-
-.wrapper .items {
-    display: flex;
-    max-width: 720px;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.items span {
-    padding: 7px 25px;
-    font-size: 18px;
-    font-weight: 500;
-    color: #007bff;
-    cursor: pointer;
-    border-radius: 50px;
-    border: 2px solid #007bff;
-    transition: all 0.3s ease;
-}
-
-.items span.active,
-.items span:hover {
-    color: #fff;
-    background-color: #007bff;
-}
-
-.gallery {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 30px;
-}
-
-.gallery .image {
-    width: calc(100% / 4);
-    padding: 7px;
-}
-
-.gallery .image span {
-    display: flex;
-    width: 100%;
-    overflow: hidden;
-}
-
-.gallery .image img {
-    width: 100%;
-    vertical-align: middle;
-    transition: all 0.3s ease;
-}
-
-.gallery .image:hover img {
-    transform: scale(1.1);
-}
-
-.gallery .image.hide {
-    display: none;
-}
-
-.gallery .image.show {
-    animation: animate 0.4s ease;
-}
-
-@keyframes animate {
-    0% {
-        transform: scale(0.5);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-.preview-box {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
+.wrapper .search-input {
     background-color: #fff;
-    max-width: 700px;
     width: 100%;
-    z-index: 5;
-    border-radius: 3px;
-    padding: 0 5px 5px 5px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    box-shadow: 0 1px 5px 3px rgba(0, 0, 0, 0.12);
+    position: relative;
+}
+
+.search-input input {
+    height: 55px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 60px 0 20px;
+    font-size: 18px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-input .autoCom-box {
+    padding: 0;
+    max-height: 280;
+    overflow-y: auto;
+    transition: height 0.3s ease;
+}
+
+.autoCom-box li {
+    list-style: none;
+    padding: 8px 12px;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    border-radius: 5px;
     transition: all 0.3s ease;
 }
 
-.preview-box .details {
-    padding: 13px 15px 13px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.autoCom-box li:hover {
+    background-color: #efefef;
 }
 
-.details .title {
-    display: flex;
-    font-size: 18px;
-    font-weight: 400;
-}
-
-.details .title p {
-    font-weight: 500;
-    margin-left: 5px;
-}
-
-.details .icon {
-    color: #007bff;
-    cursor: pointer;
-    font-size: 22px;
-}
-
-.preview-box .image-box {
-    width: 100%;
-    display: flex;
-}
-
-.image-box img {
-    width: 100%;
-    border-radius: 0 0 3px 3px;
-}
-
-.shadow {
-    position: fixed;
+.icon {
+    height: 55px;
+    width: 55px;
+    line-height: 55px;
+    position: absolute;
     top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-@media screen and (max-width: 1000px) {
-    .gallery .image {
-        width: calc(100%/3);
-    }
-}
-
-@media (max-width: 800px) {
-    .gallery .image {
-        width: calc(100% / 2);
-    }
-}
-
-@media screen and (max-width: 700px) {
-    .wrapper nav .items {
-        max-width: 600px;
-    }
-
-    nav .items span {
-        padding: 7px 15px;
-    }
-}
-
-@media (max-width: 600px) {
-    .wrapper {
-        margin: 30px auto;
-    }
-
-    .wrapper nav .items {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    nav .items span {
-        margin: 5px;
-    }
-
-    .gallery .image {
-        width: 100%;
-    }
+    right: 0;
+    text-align: center;
+    font-size: 20px;
+    color: #644bff;
+    cursor: pointer;
 }

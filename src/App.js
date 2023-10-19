@@ -1,112 +1,83 @@
 import { useState } from "react";
 import "./App.css";
 
+const suggestions = [
+  "Channel",
+  "CodingLab",
+  "CodingNepal",
+  "YouTube",
+  "YouTuber",
+  "YouTube Channel",
+  "Blogger",
+  "Bollywood",
+  "Vlogger",
+  "Vehicles",
+  "Facebook",
+  "Freelancer",
+  "Facebook Page",
+  "Designer",
+  "Developer",
+  "Web Designer",
+  "Web Developer",
+  "Login Form in HTML & CSS",
+  "How to learn HTML & CSS",
+  "How to learn JavaScript",
+  "How to become Freelancer",
+  "How to become Web Designer",
+  "How to start Gaming Channel",
+  "How to start YouTube Channel",
+  "What does HTML stand for?",
+  "What does CSS stand for?",
+];
+
 function App() {
-  const [category, setCategory] = useState("all");
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
-  const [previewCategory, setPreviewCategory] = useState("");
+  const [userInput, setUserInput] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const filterImages = (category) => {
-    setCategory(category);
+  const regexPattern = new RegExp(`\\w{3,}`, "gi");
+
+  const inputChange = (e) => {
+    const input = e.target.value;
+    setUserInput(input);
+    setShowSuggestions(input.length > 0);
   };
 
-  const openPreview = (image, category) => {
-    setPreviewImage(image);
-    setPreviewCategory(category);
-    setPreviewOpen(true);
+  const onSuggestionClick = (selectedValue) => {
+    setUserInput(selectedValue);
   };
-
-  const imageItems = [
-    { category: "bag", src: "/Images/bag-1.jpg" },
-    { category: "camera", src: "/Images/camera-1.jpg" },
-    { category: "headphone", src: "/Images/headphone-1.jpg" },
-    { category: "camera", src: "/Images/camera-2.jpg" },
-    { category: "headphone", src: "/Images/headphone-2.jpg" },
-    { category: "shoe", src: "/Images/shoe-1.jpg" },
-    { category: "watch", src: "/Images/watch-1.jpg" },
-    { category: "shoe", src: "/Images/shoe-2.jpg" },
-  ];
-
   return (
     <>
       <div className="wrapper">
-        <nav>
-          <div className="items">
-            <span
-              className={category === "all" ? "active" : ""}
-              onClick={() => filterImages("all")}
-            >
-              All
-            </span>
-            <span
-              className={category === "bag" ? "active" : ""}
-              onClick={() => filterImages("bag")}
-            >
-              Bag
-            </span>
-            <span
-              className={category === "shoe" ? "active" : ""}
-              onClick={() => filterImages("shoe")}
-            >
-              Shoe
-            </span>
-            <span
-              className={category === "watch" ? "active" : ""}
-              onClick={() => filterImages("watch")}
-            >
-              Watch
-            </span>
-            <span
-              className={category === "camera" ? "active" : ""}
-              onClick={() => filterImages("camera")}
-            >
-              Camera
-            </span>
-            <span
-              className={category === "headphone" ? "active" : ""}
-              onClick={() => filterImages("headphone")}
-            >
-              Headphone
-            </span>
+        <div className="search-input">
+          <input
+            type="text"
+            placeholder="Type to search..."
+            value={userInput}
+            onChange={inputChange}
+          />
+          <div className="autoCom-box">
+            {showSuggestions &&
+              suggestions
+                .filter((data) =>
+                  data
+                    .toLocaleLowerCase()
+                    .startsWith(
+                      userInput.toLocaleLowerCase().match(regexPattern)
+                    )
+                )
+                .map((data, index) => (
+                  <div
+                    key={index}
+                    className="autoCom-box-item"
+                    onClick={() => onSuggestionClick(data)}
+                  >
+                    <li>{data}</li>
+                  </div>
+                ))}
           </div>
-        </nav>
-        <div className="gallery">
-          {imageItems.map((item, index) => (
-            <div
-              className={`image ${
-                category === "all" || category === item.category
-                  ? "show"
-                  : "hide"
-              }`}
-              key={index}
-              onClick={() => openPreview(item.src, item.category)}
-            >
-              <span>
-                <img src={item.src} alt="" />
-              </span>
-            </div>
-          ))}
+          <div className="icon fas fa-search"></div>
         </div>
       </div>
-      {/* Full screen preview box */}
-      {previewOpen && (
-        <div className="preview-box">
-          <div className="details">
-            <span className="title">
-              Image Category: <p>{previewCategory}</p>
-            </span>
-            <span
-              className="icon fas fa-times"
-              onClick={() => setPreviewOpen(false)}
-            ></span>
-          </div>
-          <div className="image-box">
-            <img src={previewImage} alt="" />
-          </div>
-        </div>
-      )}
-      {previewOpen && <div className="shadow"></div>}
     </>
   );
 }
